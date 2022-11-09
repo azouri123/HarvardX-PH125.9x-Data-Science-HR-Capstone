@@ -1,16 +1,17 @@
 ---
-output:
-  pdf_document: default
-  html_document: default
----
-*---
 title: "Movielens Porject"
 author: "Hatem RABEH"
 date: "2022-11-06"
 output:
   pdf_document: default
   html_document: default
+  df_print: paged
+  word_document: default
 ---
+
+```{r center, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align="center")
+```
 ```{r setup, include=FALSE}
 
                                            #############################
@@ -374,7 +375,7 @@ reg_predicted_ratings <- edx_test_set %>%
   .$pred
 Regularisation_rmse <- rmse(edx_test_set$rating,reg_predicted_ratings)
 rmse_results <- bind_rows(rmse_results,
-                          data_frame(Model="Regularized Movie and User impacts Model",  
+                          tibble(Model="Regularized Movie and User impacts Model",  
                                      RMSE = round(Regularisation_rmse, 4)))
 rmse_results
 ```
@@ -414,7 +415,7 @@ predicted_residuals_mf <- scan(pred_file)
 predicted_ratings_mf <- reg_predicted_ratings + predicted_residuals_mf
 Factorization_rmse <- rmse(edx_test_set$rating, predicted_ratings_mf)
 rmse_results <- bind_rows(rmse_results,
-                          data_frame(Model="Parallel Matrix Factorization",  
+                          tibble(Model="Parallel Matrix Factorization",  
                                      RMSE = round(Factorization_rmse, 4)))
 
 rmse_results
